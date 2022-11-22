@@ -15,14 +15,21 @@ def print_stats(jsonfile):
         stats = json.load(file)
         
     timestartedhuman = datetime.fromtimestamp(stats['timestarted'])
-
+    
     print(f"Comparing {stats['oldroot']} and {stats['newroot']} using {stats['checksum']}")
-    print(f"Running since: {timestartedhuman}")
+    print(f"Started at: {timestartedhuman}")
+    
+    if stats['timefinished'] != -1:
+        timefinishedhuman = datetime.fromtimestamp(stats['timefinished'])
+        print(f"Finished at: {timefinishedhuman}")
+        
     print(f"Files processed: {stats['filecount']}")
     print(f"Number of error files: {stats['errorcount']}")
     print(f"Number of different files: {stats['diffcount']}")
     print(f"Number of skipped files: {stats['skippedcount']}")
-
+    print(f"Read size: {stats['readsize']}")
+    print(f"Verify: {stats['verify']}")
+    
 if len(argv) != 2:
     print("sys.argv length isn't 2... no file passed or too many arguments.")
     raise SystemExit(1)
